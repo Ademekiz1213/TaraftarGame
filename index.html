@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚽ Taraftar Savaşı</title>
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Poppins:wght@400;600;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Team Selection -->
+    <div class="team-selection" id="team-selection">
+        <div class="selection-bg"></div>
+        <h1 class="main-title">⚽ TARAFTAR SAVAŞI</h1>
+        <p class="subtitle">2 Takım Seç ve Savaşı Başlat!</p>
+        <div class="teams-grid">
+            <div class="team-card" data-team="fb" onclick="selectTeam('fb')">
+                <div class="card-glow"></div>
+                <div class="team-logo">💛💙</div>
+                <div class="team-title">Fenerbahçe</div>
+                <input type="text" class="team-input" id="input-fb" value="FENERBAHÇE"
+                    onclick="event.stopPropagation()">
+            </div>
+            <div class="team-card" data-team="gs" onclick="selectTeam('gs')">
+                <div class="card-glow"></div>
+                <div class="team-logo">🔴🟡</div>
+                <div class="team-title">Galatasaray</div>
+                <input type="text" class="team-input" id="input-gs" value="GALATASARAY"
+                    onclick="event.stopPropagation()">
+            </div>
+            <div class="team-card" data-team="bjk" onclick="selectTeam('bjk')">
+                <div class="card-glow"></div>
+                <div class="team-logo">🦅⚫</div>
+                <div class="team-title">Beşiktaş</div>
+                <input type="text" class="team-input" id="input-bjk" value="BEŞİKTAŞ" onclick="event.stopPropagation()">
+            </div>
+            <div class="team-card" data-team="ts" onclick="selectTeam('ts')">
+                <div class="card-glow"></div>
+                <div class="team-logo">🔵🔴</div>
+                <div class="team-title">Trabzonspor</div>
+                <input type="text" class="team-input" id="input-ts" value="TRABZONSPOR"
+                    onclick="event.stopPropagation()">
+            </div>
+        </div>
+        <button class="start-btn" id="start-btn" onclick="startGame()">
+            <span>⚽ MAÇI BAŞLAT!</span>
+            <div class="btn-shine"></div>
+        </button>
+    </div>
+
+    <!-- Game Screen -->
+    <div class="game-container" id="game-container">
+        <button class="reset-btn" onclick="location.reload()">🔄</button>
+
+        <!-- Top HUD -->
+        <div class="hud">
+            <div class="hud-team hud-team-1">
+                <div class="hud-logo" id="hud-logo-1">💛💙</div>
+                <div class="hud-info">
+                    <div class="hud-name" id="hud-name-1">TAKIM 1</div>
+                    <div class="hud-fans">👥 <span id="fans-1">0</span></div>
+                </div>
+                <div class="hud-score" id="score-1">0</div>
+            </div>
+            <div class="hud-center">
+                <div class="match-timer" id="match-timer">03:00</div>
+                <div class="hud-vs">VS</div>
+            </div>
+            <div class="hud-team hud-team-2">
+                <div class="hud-score" id="score-2">0</div>
+                <div class="hud-info">
+                    <div class="hud-name" id="hud-name-2">TAKIM 2</div>
+                    <div class="hud-fans">👥 <span id="fans-2">0</span></div>
+                </div>
+                <div class="hud-logo" id="hud-logo-2">🔴🟡</div>
+            </div>
+        </div>
+
+        <!-- Main Field -->
+        <div class="field-container">
+            <div class="field" id="field">
+                <div class="field-grass"></div>
+                <div class="field-lines">
+                    <div class="center-line"></div>
+                    <div class="center-circle"></div>
+                    <div class="center-dot"></div>
+                    <div class="penalty-area penalty-area-1"></div>
+                    <div class="penalty-area penalty-area-2"></div>
+                    <div class="goal-area goal-area-1"></div>
+                    <div class="goal-area goal-area-2"></div>
+                </div>
+                <div class="goal goal-1">
+                    <div class="goal-net"></div>
+                </div>
+                <div class="goal goal-2">
+                    <div class="goal-net"></div>
+                </div>
+                <div class="ball" id="ball">
+                    <div class="ball-shadow"></div>
+                    <div class="ball-inner">⚽</div>
+                </div>
+                <!-- Live Comment Overlay -->
+                <div class="live-comment live-comment-1" id="live-comment-1"></div>
+                <div class="live-comment live-comment-2" id="live-comment-2"></div>
+            </div>
+        </div>
+
+        <!-- Power Bar -->
+        <div class="power-section">
+            <div class="power-team power-team-1">
+                <span class="power-emoji" id="power-emoji-1">💛💙</span>
+                <span class="power-percent" id="percent-1">50%</span>
+            </div>
+            <div class="power-bar-wrapper">
+                <div class="power-bar-bg">
+                    <div class="power-bar power-bar-1" id="power-1"></div>
+                    <div class="power-bar power-bar-2" id="power-2"></div>
+                    <div class="power-indicator" id="power-indicator"></div>
+                </div>
+            </div>
+            <div class="power-team power-team-2">
+                <span class="power-percent" id="percent-2">50%</span>
+                <span class="power-emoji" id="power-emoji-2">🔴🟡</span>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="vote-btn vote-btn-1" id="btn-1" onclick="vote(1)">
+                <span class="vote-emoji" id="vote-emoji-1">💛💙</span>
+                <span class="vote-text" id="vote-text-1">FENER</span>
+                <span class="vote-key">1</span>
+            </button>
+            <div class="gift-controls">
+                <button class="gift-btn" onclick="sendGift(1)" data-power="+5">🌹</button>
+                <button class="gift-btn" onclick="sendGift(2)" data-power="+15">🦁</button>
+                <button class="gift-btn" onclick="sendGift(3)" data-power="+30">🚀</button>
+                <button class="gift-btn" onclick="sendGift(4)" data-power="+50">👑</button>
+            </div>
+            <button class="vote-btn vote-btn-2" id="btn-2" onclick="vote(2)">
+                <span class="vote-emoji" id="vote-emoji-2">🔴🟡</span>
+                <span class="vote-text" id="vote-text-2">CİMBOM</span>
+                <span class="vote-key">2</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Overlays -->
+    <div class="goal-overlay" id="goal-overlay">
+        <div class="goal-content">
+            <div class="goal-text" id="goal-text">GOOOL!</div>
+            <div class="goal-scorer" id="goal-scorer"></div>
+        </div>
+    </div>
+    <div class="combo-display" id="combo-display">🔥 COMBO!</div>
+
+    <!-- Settings Button -->
+    <button class="settings-btn" id="settings-btn" onclick="toggleSettings()">⚙️</button>
+
+    <!-- Settings Modal -->
+    <div class="settings-overlay" id="settings-overlay" onclick="closeSettings(event)">
+        <div class="settings-modal" onclick="event.stopPropagation()">
+            <div class="settings-header">
+                <h2>⚙️ Ayarlar</h2>
+                <button class="settings-close" onclick="toggleSettings()">✕</button>
+            </div>
+            <div class="settings-body">
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <span class="setting-icon">⏱️</span>
+                        <span class="setting-text">Maç Süresi</span>
+                    </label>
+                    <div class="setting-control">
+                        <input type="range" id="setting-time" min="60" max="600" value="180"
+                            oninput="updateSettingDisplay(this, 's')">
+                        <span class="setting-value" id="setting-time-value">180s</span>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <span class="setting-icon">📏</span>
+                        <span class="setting-text">Gol Mesafesi (Adım)</span>
+                    </label>
+                    <div class="setting-control">
+                        <input type="range" id="setting-distance" min="10" max="100" value="42"
+                            oninput="updateSettingDisplay(this, '')">
+                        <span class="setting-value" id="setting-distance-value">42</span>
+                    </div>
+                    <p class="setting-desc">Topun gol için kaç adım ilerlemesi gerektiği</p>
+                </div>
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <span class="setting-icon">💪</span>
+                        <span class="setting-text">Oy Gücü</span>
+                    </label>
+                    <div class="setting-control">
+                        <input type="range" id="setting-votepower" min="0.1" max="2" step="0.1" value="0.2"
+                            oninput="updateSettingDisplay(this, 'x')">
+                        <span class="setting-value" id="setting-votepower-value">0.2x</span>
+                    </div>
+                    <p class="setting-desc">Her oyun topu ne kadar hareket ettirir</p>
+                </div>
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <span class="setting-icon">🤖</span>
+                        <span class="setting-text">Simülasyon Hızı</span>
+                    </label>
+                    <div class="setting-control">
+                        <input type="range" id="setting-simspeed" min="200" max="2000" value="500"
+                            oninput="updateSettingDisplay(this, 'ms')">
+                        <span class="setting-value" id="setting-simspeed-value">500ms</span>
+                    </div>
+                    <p class="setting-desc">Otomatik oy simülasyonu aralığı</p>
+                </div>
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <span class="setting-icon">🎁</span>
+                        <span class="setting-text">Hediye Güçleri</span>
+                    </label>
+                    <div class="gift-settings">
+                        <div class="gift-setting">
+                            <span>🌹</span>
+                            <input type="number" id="gift-power-1" value="5" min="1" max="100">
+                        </div>
+                        <div class="gift-setting">
+                            <span>🦁</span>
+                            <input type="number" id="gift-power-2" value="15" min="1" max="100">
+                        </div>
+                        <div class="gift-setting">
+                            <span>🚀</span>
+                            <input type="number" id="gift-power-3" value="30" min="1" max="100">
+                        </div>
+                        <div class="gift-setting">
+                            <span>👑</span>
+                            <input type="number" id="gift-power-4" value="50" min="1" max="100">
+                        </div>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <label class="setting-label">
+                        <span class="setting-icon">🔊</span>
+                        <span class="setting-text">Simülasyon</span>
+                    </label>
+                    <div class="setting-toggle">
+                        <label class="toggle">
+                            <input type="checkbox" id="setting-simulation" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span id="sim-status">Açık</span>
+                    </div>
+                    <p class="setting-desc">Otomatik oy simülasyonunu aç/kapat</p>
+                </div>
+            </div>
+            <div class="settings-footer">
+                <button class="settings-reset" onclick="resetSettings()">🔄 Varsayılana Dön</button>
+                <button class="settings-save" onclick="saveSettings()">💾 Kaydet</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
