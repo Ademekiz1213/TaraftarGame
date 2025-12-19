@@ -262,7 +262,7 @@ function showCombo() {
 }
 
 // ========== GIFTS ==========
-function sendGift(type) {
+function sendGift(type, teamNum) {
     if (!state.running) return;
 
     const giftEmojis = { 1: '🌹', 2: '🦁', 3: '🚀', 4: '👑' };
@@ -278,9 +278,9 @@ function sendGift(type) {
     document.body.appendChild(popup);
     setTimeout(() => popup.remove(), 1500);
 
-    // Random team
-    const teamNum = Math.random() > 0.5 ? 1 : 2;
-    vote(teamNum, power);
+    // Use specific team if provided, otherwise random
+    const targetTeam = teamNum || (Math.random() > 0.5 ? 1 : 2);
+    vote(targetTeam, power);
 }
 
 // ========== TIMER ==========
@@ -355,10 +355,16 @@ document.addEventListener('keydown', (e) => {
     switch (key) {
         case '1': vote(1); break;
         case '2': vote(2); break;
-        case 'q': sendGift(1); break;
-        case 'w': sendGift(2); break;
-        case 'e': sendGift(3); break;
-        case 'r': sendGift(4); break;
+        // Team 1 Gifts
+        case 'q': sendGift(1, 1); break;
+        case 'w': sendGift(2, 1); break;
+        case 'e': sendGift(3, 1); break;
+        case 'r': sendGift(4, 1); break;
+        // Team 2 Gifts
+        case 'a': sendGift(1, 2); break;
+        case 's': sendGift(2, 2); break;
+        case 'd': sendGift(3, 2); break;
+        case 'f': sendGift(4, 2); break;
     }
 });
 

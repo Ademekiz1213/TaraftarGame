@@ -129,22 +129,33 @@
 
         <!-- Controls -->
         <div class="controls">
-            <button class="vote-btn vote-btn-1" id="btn-1" onclick="vote(1)">
-                <span class="vote-emoji" id="vote-emoji-1">💛💙</span>
-                <span class="vote-text" id="vote-text-1">FENER</span>
-                <span class="vote-key">1</span>
-            </button>
-            <div class="gift-controls">
-                <button class="gift-btn" onclick="sendGift(1)" data-power="+5">🌹</button>
-                <button class="gift-btn" onclick="sendGift(2)" data-power="+15">🦁</button>
-                <button class="gift-btn" onclick="sendGift(3)" data-power="+30">🚀</button>
-                <button class="gift-btn" onclick="sendGift(4)" data-power="+50">👑</button>
+            <div class="team-controller team-controller-1">
+                <button class="vote-btn vote-btn-1" id="btn-1" onclick="vote(1)">
+                    <span class="vote-emoji" id="vote-emoji-1">💛💙</span>
+                    <span class="vote-text" id="vote-text-1">FENER</span>
+                    <span class="vote-key">1</span>
+                </button>
+                <div class="gift-controls gift-controls-1">
+                    <button class="gift-btn" onclick="sendGift(1, 1)" data-power="+5">🌹</button>
+                    <button class="gift-btn" onclick="sendGift(2, 1)" data-power="+15">🦁</button>
+                    <button class="gift-btn" onclick="sendGift(3, 1)" data-power="+30">🚀</button>
+                    <button class="gift-btn" onclick="sendGift(4, 1)" data-power="+50">👑</button>
+                </div>
             </div>
-            <button class="vote-btn vote-btn-2" id="btn-2" onclick="vote(2)">
-                <span class="vote-emoji" id="vote-emoji-2">🔴🟡</span>
-                <span class="vote-text" id="vote-text-2">CİMBOM</span>
-                <span class="vote-key">2</span>
-            </button>
+
+            <div class="team-controller team-controller-2">
+                <button class="vote-btn vote-btn-2" id="btn-2" onclick="vote(2)">
+                    <span class="vote-emoji" id="vote-emoji-2">🔴🟡</span>
+                    <span class="vote-text" id="vote-text-2">CİMBOM</span>
+                    <span class="vote-key">2</span>
+                </button>
+                <div class="gift-controls gift-controls-2">
+                    <button class="gift-btn" onclick="sendGift(1, 2)" data-power="+5">🌹</button>
+                    <button class="gift-btn" onclick="sendGift(2, 2)" data-power="+15">🦁</button>
+                    <button class="gift-btn" onclick="sendGift(3, 2)" data-power="+30">🚀</button>
+                    <button class="gift-btn" onclick="sendGift(4, 2)" data-power="+50">👑</button>
+                </div>
+            </div>
         </div>
     </div>
 
